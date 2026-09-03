@@ -131,6 +131,21 @@ claude plugin validate ./plugins/overskill --strict
 
 Both are clean as of Claude Code 2.1.259.
 
+## Before publishing
+
+Three things this repository cannot verify for itself:
+
+1. **The install.** Run the Claude Code block above against this repository once
+   and confirm the eleven tools appear after sign-in.
+2. **Grok CLI.** The claim that the same repository installs unchanged rests on
+   xAI's documented behaviour, not on a run. Verify it before saying so publicly.
+3. **The skill set is five, and each one maps to tools that exist today.** Skills
+   for monetization, templates and remix, and third-party integrations are
+   deliberately absent: their tools are not on the hosted server, and a skill
+   that describes a tool an agent cannot call is a bug report waiting to happen.
+   Add them with the tools, not before. [ROADMAP.md](ROADMAP.md) tracks which
+   tool each one waits on.
+
 ## Releasing a change
 
 `version` appears in two places — `plugins/overskill/.claude-plugin/plugin.json`
