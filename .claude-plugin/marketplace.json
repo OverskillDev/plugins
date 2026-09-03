@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "overskill",
+  "description": "Official Overskill plugins for AI coding agents.",
+  "version": "1.0.0",
+  "owner": {
+    "name": "Overskill",
+    "url": "https://www.overskill.com"
+  },
+  "plugins": [
+    {
+      "name": "overskill",
+      "source": "./plugins/overskill",
+      "displayName": "Overskill",
+      "description": "Build, deploy, and manage full-stack web apps on Overskill from a plain-language prompt. Adds the hosted Overskill MCP server plus skills for the build, change, publish, and troubleshooting steps. Requires an Overskill account; the server is OAuth-gated.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Overskill",
+        "url": "https://www.overskill.com"
+      },
+      "homepage": "https://www.overskill.com/connect",
+      "repository": "https://github.com/OverskillDev/plugins",
+      "license": "MIT",
+      "category": "development",
+      "keywords": ["app-builder", "deploy", "hosting", "mcp", "react"],
+      "tags": ["app-builder", "deploy", "mcp"],
+      "defaultEnabled": false
+    }
+  ]
+}

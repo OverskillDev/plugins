@@ -1,0 +1,68 @@
+name: validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  manifests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Manifests are valid JSON and agree on version
+        run: |
+          python3 - <<'PY'
+          import json, sys
+
+          market = json.load(open(".claude-plugin/marketplace.json"))
+          plugin = json.load(open("plugins/overskill/.claude-plugin/plugin.json"))
+          mcp = json.load(open("plugins/overskill/.mcp.json"))
+
+          errors = []
+
+          entry = next((p for p in market["plugins"] if p["name"] == plugin["name"]), None)
+          if entry is None:
+              errors.append("marketplace.json has no entry named %r" % plugin["name"])
+          elif entry.get("version") != plugin.get("version"):
+              # claude plugin tag refuses a release when these disagree.
+              errors.append(
+                  "version mismatch: marketplace entry %r vs plugin.json %r"
+                  % (entry.get("version"), plugin.get("version"))
+              )
+
+          server = mcp.get("mcpServers", {}).get("overskill", {})
+          if server.get("url") != "https://mcp.overskill.com/mcp":
+              errors.append("the MCP url must be the canonical https://mcp.overskill.com/mcp")
+          if "command" in server or "args" in server:
+              errors.append("the MCP server is remote; it takes no command")
+          if "headers" in server:
+              errors.append("no credentials in .mcp.json — the server is OAuth-only")
+
+          if errors:
+              print("\n".join(errors))
+              sys.exit(1)
+          print("manifests ok")
+          PY
+
+      - name: Brand is spelled Overskill
+        run: |
+          # One word, lowercase s. This file is excluded because it carries the
+          # patterns it searches for.
+          if grep -rn --exclude-dir=.git --exclude=validate.yml -e 'OverSkill' -e 'Over Skill' .; then
+            echo "Brand misspelling — write Overskill"
+            exit 1
+          fi
+          echo "brand ok"
+
+      - name: Retired surfaces stay unadvertised
+        run: |
+          # The anonymous build flow was removed on 2026-08-26 (nothing
+          # generates before an identity exists) and the legacy JSON-RPC door
+          # does not exist. Neither may reappear in a published artifact.
+          if grep -rn --exclude-dir=.git --exclude=validate.yml -e 'anonymous_builds' -e 'api/v1/mcp' .; then
+            echo "This surface is retired and must not be advertised"
+            exit 1
+          fi
+          echo "surfaces ok"

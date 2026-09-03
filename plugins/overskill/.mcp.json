@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "overskill": {
+      "type": "http",
+      "url": "https://mcp.overskill.com/mcp"
+    }
+  }
+}
