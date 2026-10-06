@@ -9,6 +9,7 @@
     "url": "https://www.overskill.com"
   },
   "homepage": "https://www.overskill.com/connect",
+  "privacyPolicyUrl": "https://www.overskill.com/privacy",
   "repository": "https://github.com/OverskillDev/plugins",
   "license": "MIT",
   "keywords": ["app-builder", "deploy", "hosting", "mcp", "react"],
