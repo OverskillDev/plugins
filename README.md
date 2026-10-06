@@ -8,11 +8,6 @@ This repository holds one plugin, `overskill`, which connects a coding agent to
 the hosted Overskill MCP server and adds skills for the build, change, publish,
 and troubleshooting steps.
 
-> **Status: draft, not published anywhere.** This repository has not been
-> submitted to the Claude Code plugin marketplace, ClawHub, skills.sh, the Cursor
-> directory, or any other listing. Everything below under "Install" is written for
-> whoever publishes it, not run yet.
-
 ## What it adds
 
 | Component | Count | Detail |
